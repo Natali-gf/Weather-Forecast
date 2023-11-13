@@ -1,0 +1,60 @@
+@import '../../styles/variables.scss';
+
+.menu {
+	position: fixed;
+	background-color: rgb(21, 28, 31);
+	width: 300px;
+	height: 100%;
+	z-index: 10;
+	padding: 20px;
+	&__header {
+		display: flex;
+	}
+	&__burger {
+		cursor: pointer;
+		// background-color: rgba(172, 174, 179, 0.233);
+		box-shadow: 0 0 8px .2px rgba(49, 53, 63, 0.582);
+		border-radius: 6px;
+		padding: 10px;
+		// margin: 5px;
+		&::before {
+			content: url(../../assets/icons/sidebar_menu.svg);
+		}
+	}
+	&__button {
+		padding: 8px;
+		width: 100%;
+		background-color: $colorGrey;
+		@include fontStyle(18px, 24px, 600, $colorWhite);
+		cursor: pointer;
+		border-radius: 10px;
+	}
+	&__location {
+		margin: 10px 0;
+	}
+}
+
+.location {
+	display: flex;
+	justify-content: space-between;
+	border-bottom: 2px dotted $colorGreyLight;
+	padding: 5px 0;
+	&__name {
+		@include fontStyle(15px, 24px, 600, $colorWhite);
+	}
+	&__country {
+		display: block;
+		@include fontStyle(14px, 24px, 400, $colorGreyLight);
+	}
+	&__addButton {
+		background-color: transparent;
+		&::before {
+			content: '\002B';
+			background-size: 20px;
+			font-size: 40px;
+			font-weight: 100;
+			@include width-height(30px);
+			color: $colorWhite;
+		}
+	}
+}

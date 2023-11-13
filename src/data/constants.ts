@@ -1,0 +1,1 @@
+export const firstArrayItem: number = 0

@@ -1,46 +1,40 @@
-# Getting Started with Create React App
+# Проект «Виджет с прогнозом погоды»
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.
+**Этот виджет позволяет получать информацию о погоде:**
 
-## Available Scripts
+- В любом городе по запросу;
 
-In the project directory, you can run:
+- По текущей геолокации пользователя.
 
-### `npm start`
+**Также пользователь сможет выбрать, на какой период он хочет узнать погоду:**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- На текущее время;
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- На ближайшие 5 дней.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Обязательные элементы дизайна:
 
-### `npm run build`
+1. Поисковая строка для ввода города или населенного пункта.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. Кнопка для получения текущей геолокации пользователя.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. Кнопка для получения прогноза погоды.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+4. Блок или несколько блоков с полученной информацией о погоде.
 
-### `npm run eject`
+5. Переключатель для выбора, какие данные получить. Текущую погоду или прогноз на 5 дней.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Данные, которые необходимо показать пользователю:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Температуру в градусах Цельсия.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+2. Текстовое описание погоды: например, «пасмурно». И соответствующую картинку. Можете взять как свои иконки, так и использовать те, что предлагает OpenWeather.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+3. Давление.
 
-## Learn More
+4. Влажность.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+5. Скорость ветра.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+6. Время восхода и заката солнца.

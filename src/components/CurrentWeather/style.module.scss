@@ -1,0 +1,26 @@
+@import '../../styles/variables.scss';
+
+.search {
+	// @include flex-grid(flex, null, null, center);
+	// background-color: $colorBackground;
+	// border-radius: 100px;
+	// height: 56px;
+	// padding: 12px 12px;
+	// &::before {
+	// 	content: url(../../assets/icons/search.svg);
+	// 	margin-right: 18px;
+	// }
+	// div {
+	// 	display: flex;
+	// 	align-items: center;
+	// }
+	// input {
+	// 	height: 100%;
+	// 	background-color: transparent;
+	// 	@include flex-grid(flex, null, null, center);
+	// 	@include textStyle(inputSearch, $colorText);
+	// 	&::placeholder {
+	// 		@include textStyle(inputSearch, $colorTextGrey);
+	// 	}
+	// }
+}
