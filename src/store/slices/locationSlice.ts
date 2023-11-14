@@ -1,7 +1,8 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import api from '../../api/api';
 import { apiKey } from '../../api/apiKey';
-import { IResponseWithLocationData, IResponseLocationData } from '../../interfaces/apiResponses';
+import { IResponseWithLocationData,
+				IResponseLocationData } from '../../interfaces/apiResponses';
 import { Status, StatusCode } from '../../enum/status';
 import { ILocation } from '../../interfaces/location';
 import { StatusRequest } from '../../types/statusRequest';
@@ -87,14 +88,31 @@ export const locationSlice = createSlice({
 		clearCities: (state: InitialState) => {
 			state.cities = [];
 		},
-		setCurrentCity: (state: InitialState, action: PayloadAction<number>) => {
-			state.currentCity = state.cities[action.payload];
+		setCurrentCity: (state: InitialState, action: PayloadAction<ILocation>) => {
+			state.currentCity = action.payload;
 		},
 		setErrorText: (state: InitialState, action: PayloadAction<string>) => {
 			state.error = action.payload;
 		},
 		clearErrorText: (state: InitialState) => {
 			state.error = null;
+		},
+		addFavoriteCity: (state: InitialState,
+											action: PayloadAction<ILocation | string>) => {
+			if(typeof action.payload === 'string') {
+				const favoriteCities:ILocation[] = JSON.parse(action.payload);
+				state.favoriteCities = favoriteCities;
+			} else {
+				state.favoriteCities.push(action.payload);
+			}
+		},
+		removeFavoriteCity: (state: InitialState,
+												 action: PayloadAction<ILocation>) => {
+			state.favoriteCities = state.favoriteCities.filter(item => {
+				if(action.payload.latitude === item.latitude &&
+				action.payload.longitude === item.longitude) return;
+				else return true;
+			});
 		},
 	},
 	extraReducers: {
@@ -135,6 +153,8 @@ export const {
 	setCurrentCity,
 	setErrorText,
 	clearErrorText,
+	addFavoriteCity,
+	removeFavoriteCity,
 } = locationSlice.actions;
 
 export default locationSlice.reducer;

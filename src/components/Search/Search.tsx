@@ -8,14 +8,9 @@ import { RootState } from '../../store/store';
 import { Status } from '../../enum/status';
 import { ILocation } from '../../interfaces/location';
 
-type Props = {
-	className?: string,
-	placeholder?: string,
-}
-
-function Search({className, placeholder, ...props}: Props): JSX.Element {
+function Search(): JSX.Element {
 	const dispatch = useAppDispatch();
-	const { status, error, cities } = useAppSelector((state: RootState) => state.location);
+	const { status, cities } = useAppSelector((state: RootState) => state.location);
 	const [ searchValue, setSearchValue ] = React.useState<string>('');
 
  	//! так и не поняла какой тип возвращает useCallback Promise<"... и тут что?">
@@ -36,14 +31,14 @@ function Search({className, placeholder, ...props}: Props): JSX.Element {
 		debouncedSearch(value);
 	}
 
-	function chooseCity(index: number) {
-		dispatch(setCurrentCity(index));
+	function chooseCity(city: ILocation) {
+		dispatch(setCurrentCity(city));
 		setSearchValue('');
 	}
 
 	return (
 		<div
-			className={cn(s.search, className)}>
+			className={s.search}>
 			<div
 				className={s.search__field}>
 				<input
@@ -61,7 +56,7 @@ function Search({className, placeholder, ...props}: Props): JSX.Element {
 							<li
 								className={s.location__item}
 								key={index}
-								onClick={(): void => chooseCity(index)}>
+								onClick={(): void => chooseCity(item)}>
 								<span className={s.location__name}>{item.name}</span>
 								<span className={s.location__country}>
 									{item.state} / {item.country}

@@ -1,10 +1,10 @@
 import React from 'react';
-import s from './style.module.scss';
 import { useAppSelector } from '../../store/hooks';
 import { RootState } from '../../store/store';
-import Card from '../ui/Card/Card';
 import { getDate, getTime } from '../../helpers/getDateTime';
 import { weekDays, months } from '../../data/datetime';
+import Card from '../ui/Card/Card';
+import s from './style.module.scss';
 
 function MainCard(): JSX.Element {
 	const { currentCity } = useAppSelector((state: RootState) => state.location);

@@ -1,10 +1,17 @@
 @import '../../styles/variables.scss';
+@import '../../styles/themes.scss';
 
 .content {
+	@include themify($themes) {
+		background-color: themed('back');
+	}
 	position: relative;
-	height: 100vh;
+	height: 100%;
 	background: linear-gradient(175deg, transparent 50%, #aae6ee 97%) left 0 bottom 0 / 100% 50% no-repeat, url('../../assets/images/light_clouds.png') center/cover no-repeat;
 	&_hidden {
+		@include themify($themes) {
+			background-color: themed('back');
+		}
 		@include width-height(100%);
 		position: fixed;
 		background-color: rgba(14, 32, 46, 0.85);
@@ -24,6 +31,7 @@
 		box-shadow: $shadowLittle;
 		border-radius: 6px;
 		padding: 10px 15px 8px;
+		height: 50px;
 		&::before {
 			content: url(../../assets/icons/sidebar_menu.svg);
 		}
@@ -35,7 +43,40 @@
 		height: 50px;
 	}
 	&__main {
-		display: flex;
+		height: 100%;
+		flex: 1 1 auto;
+		display: grid;
+		grid-template-columns: 1fr 3fr;
+		grid-template-rows: 300px;
 		gap: 30px;
+	}
+	@media screen and (max-width: $sizeLarge) {
+		&__main {
+			display: grid;
+			grid-template-columns: 1fr;
+			grid-template-rows: fit-content(200px);
+			gap: 30px;
+		}
+	}
+	@media screen and (max-width: $sizeMedium) {
+		&__container {
+			gap: 20px;
+			padding: 20px 10px;
+		}
+		&__main {
+			gap: 20px;
+		}
+		&__mainTools {
+			position: relative;
+			display: flex;
+			justify-content: space-between;
+			gap: 10px;
+			height: 110px;
+			&>div:nth-child(2) {
+				position: absolute;
+				align-self: flex-end;
+				width: 100%;
+			}
+		}
 	}
 }

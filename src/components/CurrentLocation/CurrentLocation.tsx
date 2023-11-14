@@ -1,16 +1,11 @@
 import React from 'react';
-import s from './style.module.scss';
-import cn from 'classnames';
 import { useAppDispatch } from '../../store/hooks';
 import { fetchLocationByGeo, setErrorText } from '../../store/slices/locationSlice';
 import { getGeoPosition } from '../../helpers/getGeoPosition';
 import { ICoords } from '../../interfaces/coords';
+import s from './style.module.scss';
 
-type Props = {
-	className?: string,
-}
-
-function CurrentLocation({className}: Props): JSX.Element {
+function CurrentLocation(): JSX.Element {
 	const dispatch = useAppDispatch();
 	const [ findGeo, setFindGeo ] = React.useState<boolean>(true);
 
@@ -30,7 +25,7 @@ function CurrentLocation({className}: Props): JSX.Element {
 
 	return (
 		<button
-			className={cn(s.buttonGeo, className)}
+			className={s.buttonGeo}
 			onClick={(): void => setFindGeo(true)}>
 			Current location
 		</button>

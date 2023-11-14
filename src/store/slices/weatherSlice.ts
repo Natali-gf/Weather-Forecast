@@ -2,11 +2,15 @@ import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import api from '../../api/api';
 import { apiKey } from '../../api/apiKey';
 import { Status, StatusCode } from '../../enum/status';
-import { ICurrentForecast, IForecastByHours, IMultidayForecast } from '../../interfaces/weather';
-import { RootState } from '../store';
-import { IResponseWeatherByHours, IResponseWithWeatherCurrentData, IResponseWithWeatherData } from '../../interfaces/apiResponses';
+import { ICurrentForecast,
+				 IForecastByHours,
+				 IMultidayForecast } from '../../interfaces/weather';
+import { IResponseWeatherByHours,
+				 IResponseWithWeatherCurrentData,
+				 IResponseWithWeatherData } from '../../interfaces/apiResponses';
 import { firstArrayItem } from '../../data/constants';
 import { StatusRequest } from '../../types/statusRequest';
+import { RootState } from '../store';
 
 type InitialState = {
 	status: StatusRequest,
@@ -79,7 +83,7 @@ export const fetchCurrentWeather = createAsyncThunk(
 		const coords = state.location.currentCity;
 
 		try {
-			const response: IResponseWithWeatherCurrentData = await api.get(`/data/2.5/weather?lat=${coords?.latitude}&lon=${coords?.longitude}&appid=${apiKey}&units=metric&lang=ua`);
+			const response: IResponseWithWeatherCurrentData = await api.get(`/data/2.5/weather?lat=${coords?.latitude}&lon=${coords?.longitude}&appid=${apiKey}&units=metric&`);
 
 			if(response.status < StatusCode.Successful
 				|| response.status >= StatusCode.Redirection) {

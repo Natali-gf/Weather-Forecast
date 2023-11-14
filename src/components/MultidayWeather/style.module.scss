@@ -1,2 +1,161 @@
 @import '../../styles/variables.scss';
 
+.weather {
+	@include fontStyle(16px, normal, 400, $colorDark);
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	&__title {
+		text-transform: uppercase;
+		@include fontStyle(40px, normal, 600, $colorGrey);
+		text-align: right;
+		padding: 10px;
+	}
+	&__item {
+		@include fontStyle(18px, normal, 400, $colorDark);
+		padding: 10px;
+		display: flex;
+		flex-direction: column;
+		gap: 15px;
+	}
+	&__date {
+		width: 100%;
+		font-size: 30px;
+		border-bottom: 2px dotted $colorGrey;
+	}
+	&__time {
+		grid-area: time;
+		font-size: 20px;
+		font-weight: 300;
+	}
+	&__info {
+		width: 100%;
+		display: grid;
+		grid-template-columns: .5fr 1.5fr 1fr 100px 120px 100px;
+		grid-template-rows: 70px;
+		align-items: center;
+		grid-template-areas:
+			'time main temp wind pressure humidity';
+		gap: 20px;
+	}
+	&__description {
+		grid-area: main;
+	}
+	&__temperature {
+		grid-area: temp;
+		display: flex;
+		flex-direction: column;
+		&>span:nth-child(1) {
+			font-weight: 500;
+		}
+		&>span:nth-child(2) {
+			color: $colorGrey;
+		}
+	}
+	&__wind {
+		grid-area: wind;
+		display: flex;
+		gap: 5px;
+	}
+	&__windDirection {
+		&::before {
+			content: '';
+			background-image: url(../../assets/icons/wind_direction_small.svg);
+			background-size: 20px;
+			display: block;
+			@include width-height(20px);
+		}
+	}
+	&__pressure {
+		grid-area: pressure;
+		display: flex;
+		&::before {
+			content: '';
+			background-image: url(../../assets/icons/pressure_small.svg);
+			background-size: 25px;
+			display: block;
+			@include width-height(25px);
+			margin-right: 5px;
+		}
+	}
+	&__humidity {
+		grid-area: humidity;
+		display: flex;
+		&::before {
+			content: '';
+			background-image: url(../../assets/icons/humidity_small.svg);
+			background-size: 20px;
+			background-repeat: no-repeat;
+			display: block;
+			@include width-height(24px);
+			margin-right: 5px;
+		}
+	}
+	@media screen and (max-width: $sizeLarge) {
+		&__info {
+			grid-template-columns: .5fr 1fr 1fr 1fr 1fr 1fr 1fr;
+			grid-template-rows: 70px 50px;
+			grid-template-areas:
+				'time main main main temp temp temp'
+				'. . pressure pressure wind wind humidity';
+		}
+	}
+	@media screen and (max-width: $sizeMedium) {
+		padding: 10px 0;
+		&__info {
+			grid-template-columns: .5fr 1fr 1fr 1fr 1fr;
+			grid-template-rows: repeat(6, 15px);
+			gap: 3px;
+			grid-template-areas:
+				'time main main main wind'
+				'time main main main wind'
+				'.	  main main main humidity'
+				'.	  temp temp temp humidity'
+				'.	  temp temp temp pressure'
+				'.	  temp temp temp pressure';
+			font-size: 16px;
+		}
+		&__time {
+			font-size: 16px;
+		}
+		&__temperature {
+			margin-left: 10px;
+		}
+		&__windDirection {
+			&::before {
+				background-size: 18px;
+				@include width-height(18px);
+			}
+		}
+		&__pressure {
+			&::before {
+				background-size: 20px;
+				@include width-height(20px);
+			}
+		}
+		&__humidity {
+			&::before {
+				background-size: 16px;
+				background-repeat: no-repeat;
+				display: block;
+				@include width-height(20px);
+				margin-right: 5px;
+			}
+		}
+	}
+}
+
+.description {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	&__img img {
+		@include width-height(70px);
+	}
+	@media screen and (max-width: $sizeMedium) {
+		&__img img {
+			@include width-height(50px);
+		}
+	}
+}

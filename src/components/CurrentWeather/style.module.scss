@@ -1,19 +1,83 @@
 @import '../../styles/variables.scss';
 
 .weather {
-	display: flex;
-	justify-content: space-between;
 	width: 100%;
-	max-height: 650px;
-	&__conditions {
-		width: 100%;
+	display: grid;
+	grid-template-columns: 140px 1fr 200px 1fr 110px .2fr 110px;
+	grid-template-rows: repeat(2, 125px);
+	row-gap: 20px;
+	grid-template-areas:
+		'temp . main . wind . pressure'
+		'sun  . main . wind . humidity';
+	&__temperature {
+		grid-area: temp;
+	}
+	&__sun {
+		grid-area: sun;
+	}
+	&__description {
+		grid-area: main;
+	}
+	&__wind {
+		grid-area: wind;
+		@include flex-grid(flex, column, space-between, center);
+		&::before {
+			content: url(../../assets/icons/wind_dark.png);
+		}
+	}
+	&__pressure {
+		grid-area: pressure;
+		@include flex-grid(flex, column, space-between, center);
+		&::before {
+			content: url(../../assets/icons/pressure_dark.png);
+		}
+	}
+	&__humidity {
+		grid-area: humidity;
+		@include flex-grid(flex, column, space-between, center);
+		&::before {
+			content: url(../../assets/icons/humidity_dark.png);
+		}
+	}
+	&__windDirection {
+		&::before {
+			content: url(../../assets/icons/navigation.png);
+		}
+	}
+	&__humiditi,
+	&__pressure,
+	&__wind,
+	&__windDirection {
+		&::before {
+			@include blockColumnCenter;
+		}
+	}
+	&__subtitle {
+		font-size: 18px;
+		font-weight: 600;
+	}
+	&__text {
+		color: $colorGrey;
+	}
+	@media screen and (max-width: $sizeMedium) {
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: 200px repeat(3, 110px);
+		row-gap: 20px;
+		grid-template-areas:
+			'temp main'
+			'wind pressure'
+			'wind humidity'
+			'sun  sun';
+		&__temperature {
+			@include blockColumnCenter;
+		}
 	}
 }
 
 .temperature {
 	&__current {
 		font-size: 60px;
-		font-weight: 500;
+		font-weight: 400;
 	}
 	&__minmax {
 		color: $colorGrey;
@@ -30,31 +94,23 @@
 .description {
 	text-align: center;
 	color: $colorDark;
-	font-weight: 600;
-	font-size: 18px;
-	&__img {
-		& img {
-			display: block;
+	font-weight: 500;
+	font-size: 20px;
+	text-shadow: 0 .5px 2px $colorGreyLight;
+	&__img img {
+		@include width-height(200px);
+	}
+	@media screen and (max-width: $sizeMedium) {
+		&__img img {
 			@include width-height(150px);
-			object-fit: cover;
 		}
 	}
 }
 
-.conditions {
-	display: flex;
-	flex-direction: column;
-	flex-wrap: wrap;
-	gap: 32px;
-	max-height: 320px;
-	width: 200px;
-	&__sun {
-		display: flex;
-		justify-content: center;
-		align-self: start;
-		gap: 15px;
-	}
+.sun {
+	@include flex-grid(flex, null, space-between, flex-end);
 	&__sunrise, &__sunset {
+		@include blockColumnCenter;
 		&::before {
 			content: url(../../assets/icons/sunrise_dark.svg);
 		}
@@ -75,30 +131,7 @@
 		display: block;
 		text-align: center;
 	}
-	&__humiditi {
-		&::before {
-			@include blockColumnCenter;
-			content: url(../../assets/icons/humidity_dark.png);
-		}
+	@media screen and (max-width: $sizeMedium) {
+		justify-content: space-around;
 	}
-	&__pressure {
-		&::before {
-			@include blockColumnCenter;
-			content: url(../../assets/icons/pressure_dark.png);
-		}
-	}
-	&__wind {
-		height: 100%;
-		&::before {
-			@include blockColumnCenter;
-			content: url(../../assets/icons/wind_dark.png);
-		}
-		&Direction {
-			&::before {
-				@include blockColumnCenter;
-				content: url(../../assets/icons/navigation.png);
-			}
-		}
-	}
-
 }
