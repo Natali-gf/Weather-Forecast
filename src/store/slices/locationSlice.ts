@@ -1,7 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import api from '../../api/api';
 import { apiKey } from '../../api/apiKey';
-import { ILocationResponse, ILocationResponseData } from '../../interfaces/apiResponses';
+import { IResponseWithLocationData, IResponseLocationData } from '../../interfaces/apiResponses';
 import { Status, StatusCode } from '../../enum/status';
 import { ILocation } from '../../interfaces/location';
 import { StatusRequest } from '../../types/statusRequest';
@@ -30,7 +30,7 @@ export const fetchLocation = createAsyncThunk(
 		try {
 			if(value === '') return [];
 
-			const response: ILocationResponse = await api.get(`/geo/1.0/direct?q=${value}&limit=5&appid=${apiKey}`);
+			const response: IResponseWithLocationData = await api.get(`/geo/1.0/direct?q=${value}&limit=5&appid=${apiKey}`);
 
 			if(response.status < StatusCode.Successful
 				|| response.status >= StatusCode.Redirection) {
@@ -38,7 +38,7 @@ export const fetchLocation = createAsyncThunk(
 			}
 
 			const locations: ILocation[] = response.data.map(
-				(item: ILocationResponseData) => (
+				(item: IResponseLocationData) => (
 					{
 						name: item.name,
 						latitude: item.lat,
@@ -60,7 +60,7 @@ export const fetchLocationByGeo = createAsyncThunk(
 	'location/fetchLocationByGeo',
 	async function(coords: ICoords, {rejectWithValue}): Promise<ILocation[] | unknown> {
 		try {
-			const response: ILocationResponse = await api.get(`/geo/1.0/reverse?lat=${coords.latitude}&lon=${coords.longitude}&limit=5&appid=${apiKey}`);
+			const response: IResponseWithLocationData = await api.get(`/geo/1.0/reverse?lat=${coords.latitude}&lon=${coords.longitude}&limit=5&appid=${apiKey}`);
 
 			if(response.status < StatusCode.Successful
 				|| response.status >= StatusCode.Redirection) {

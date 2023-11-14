@@ -2,9 +2,9 @@ import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import api from '../../api/api';
 import { apiKey } from '../../api/apiKey';
 import { Status, StatusCode } from '../../enum/status';
-import { ICurrentForecast, IMultidayForecast } from '../../interfaces/weather';
+import { ICurrentForecast, IForecastByHours, IMultidayForecast } from '../../interfaces/weather';
 import { RootState } from '../store';
-import { IWeatherResponseCurrentData, IWeatherResponseData } from '../../interfaces/apiResponses';
+import { IResponseWeatherByHours, IResponseWithWeatherCurrentData, IResponseWithWeatherData } from '../../interfaces/apiResponses';
 import { firstArrayItem } from '../../data/constants';
 import { StatusRequest } from '../../types/statusRequest';
 
@@ -24,43 +24,47 @@ const initialState: InitialState = {
 
 export const fetchMultidayWeather = createAsyncThunk(
 	'weather/fetchMultidayWeather',
-	async function(_, {rejectWithValue, getState}) {
+	async function(_, {rejectWithValue, getState}): Promise<IMultidayForecast | unknown> {
 		const state: RootState = getState() as RootState;
 		const coords = state.location.currentCity;
 
 		try {
-			const response: IWeatherResponseData = await api.get(`/data/2.5/forecast?lat=${coords?.latitude}&lon=${coords?.longitude}&appid=${apiKey}&units=metric&lang=en`);
+			const response: IResponseWithWeatherData = await api.get(`/data/2.5/forecast?lat=${coords?.latitude}&lon=${coords?.longitude}&appid=${apiKey}&units=metric&lang=en`);
 
 			if(response.status < StatusCode.Successful
 				|| response.status >= StatusCode.Redirection) {
 				throw new Error('Error! Try later.');
 			}
 
-			// const result: IMultidayForecast = response.data.map(item => {
-			// 	return {
-			// 		temperature: response.data.main.temp,
-			// 		feelsLike: response.data.main.feels_like,
-			// 		minTemperature: response.data.main.temp_min,
-			// 		maxTemperature: response.data.main.temp_max,
-			// 		pressure: response.data.main.pressure,
-			// 		humidity: response.data.main.humidity,
-			// 		weatherCode: response.data.weather[firstArrayItem].id,
-			// 		weatherDescription: response.data.weather[firstArrayItem].description,
-			// 		windSpeed: response.data.wind.speed,
-			// 		windDirection: response.data.wind.deg,
-			// 		windGust: response.data.wind.gust,
-			// 		datatime: response.data.dt,
-			// 		visibility: response.data.visibility,
-			// 		clouds:  response.data.clouds.all,
-			// 		sunrise: response.data.sys.sunrise,
-			// 		sunset: response.data.sys.sunset,
-			// 		timezone: response.data.timezone
-			// 	}
-			// })
+			const result: IMultidayForecast = {
+				timezone: response.data.city.timezone,
+				list: [
+					...response.data.list.map((item: IResponseWeatherByHours): IForecastByHours => {
+						console.log(item.sys.pod)
+						return {
+							temperature: item.main.temp,
+							feelsLike: item.main.feels_like,
+							minTemperature: item.main.temp_min,
+							maxTemperature: item.main.temp_max,
+							pressure: item.main.pressure,
+							humidity: item.main.humidity,
+							weatherCode: item.weather[firstArrayItem].id,
+							weatherDescription: item.weather[firstArrayItem].description,
+							windSpeed: item.wind.speed,
+							windDirection: item.wind.deg,
+							windGust: item.wind.gust,
+							datatime: item.dt,
+							visibility: item.visibility,
+							clouds:  item.clouds.all,
+							precipitationProbability: item.pop,
+							dayPart: item.sys.pod,
+							datatimeTxt: item.dt_txt,
+						}
+					})
+				]
+			}
 
-			return {
-
-			};
+			return result;
 
 		} catch (error: unknown) {
 			return rejectWithValue(error);
@@ -70,12 +74,12 @@ export const fetchMultidayWeather = createAsyncThunk(
 
 export const fetchCurrentWeather = createAsyncThunk(
 	'weather/fetchCurrentWeather',
-	async function(_, { rejectWithValue, getState}) {
+	async function(_, { rejectWithValue, getState}): Promise<ICurrentForecast | unknown> {
 		const state: RootState = getState() as RootState;
 		const coords = state.location.currentCity;
 
 		try {
-			const response: IWeatherResponseCurrentData = await api.get(`/data/2.5/weather?lat=${coords?.latitude}&lon=${coords?.longitude}&appid=${apiKey}&units=metric&lang=ua`);
+			const response: IResponseWithWeatherCurrentData = await api.get(`/data/2.5/weather?lat=${coords?.latitude}&lon=${coords?.longitude}&appid=${apiKey}&units=metric&lang=ua`);
 
 			if(response.status < StatusCode.Successful
 				|| response.status >= StatusCode.Redirection) {
@@ -130,20 +134,19 @@ export const weatherSlice = createSlice({
 		},
 
 		[fetchMultidayWeather.pending.type]: (state: InitialState) => {
-			// state.status = Status.Loading;
-			// state.error = null;
+			state.status = Status.Loading;
+			state.error = null;
 		},
 		[fetchMultidayWeather.fulfilled.type]: (state: InitialState,
-																						action) => {
-			// state.status = Status.Resolved;
-			// state.characters = action.payload.characters;
+																						action: PayloadAction<IMultidayForecast>) => {
+			state.status = Status.Resolved;
+			state.weatherMultiday = action.payload;
 		},
 		[fetchMultidayWeather.rejected.type]: (state: InitialState,
-																					 action) => {
-			// state.status = Status.Rejected;
-			// state.error = action.payload.message;
+																					 action: PayloadAction<Error>) => {
+			state.status = Status.Rejected;
+			state.error = action.payload.message;
 		},
-
 	},
 });
 

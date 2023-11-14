@@ -2,16 +2,15 @@ import {DayPart} from '../enum/dayPart';
 
 export interface IMultidayForecast {
 	list: IForecastByHours[];
-	timestampsCount: number;
 	timezone: number;
-	sunrise: number;
-	sunset: number;
 }
 
-interface IForecastByHours extends IForecast {
+export interface IForecastByHours extends IForecast {
 	precipitationProbability: number;
-	dayPart: DayPart.Day | DayPart.Night;
+	dayPart: string;
 	datatimeTxt: string;
+	visibility: number;
+	clouds: number;
 }
 
 export interface ICurrentForecast extends IForecast {

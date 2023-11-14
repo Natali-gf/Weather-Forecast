@@ -6,6 +6,7 @@ import Menu from '../../components/Menu/Menu';
 import CurrentLocation from '../../components/CurrentLocation/CurrentLocation';
 import MainCard from '../../components/MainCard/MainCard';
 import CurrentWeather from '../../components/CurrentWeather/CurrentWeather';
+import MultidayWeather from '../../components/MultidayWeather/MultidayWeather';
 
 type Props = {
 	className?: string;
@@ -40,7 +41,7 @@ function HomePage({...props}: Props): JSX.Element {
 					<MainCard />
 					<CurrentWeather />
 				</div>
-
+				<MultidayWeather />
 			</div>
 		</main>
 	);
