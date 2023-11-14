@@ -1,5 +1,6 @@
 import { ILanguage } from "../interfaces/language";
 
+//на будущее сделать смену языка хотя бы парочку
 export const languages: ILanguage[] = [
 	{ code: 'af', name: 'Afrikaans' },
 	{ code: 'al', name: 'Albanian' },

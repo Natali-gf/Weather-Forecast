@@ -9,7 +9,6 @@ export interface IBaseRequestWeatherParams {
 export interface IExtentedRequestParams extends IBaseRequestWeatherParams {
 	cnt: number,
 	units: Units,
-	lang: string,
 }
 
 export interface IRequestLocationParams {

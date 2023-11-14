@@ -3,8 +3,7 @@ import s from './style.module.scss';
 import cn from 'classnames';
 import { debounce } from '../../helpers/debounce';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { clearCities, fetchLocation, setCurrentCity } from '../../store/slices/locationSlice';
-import { PayloadAction } from '@reduxjs/toolkit';
+import { fetchLocation, setCurrentCity } from '../../store/slices/locationSlice';
 import { RootState } from '../../store/store';
 import { Status } from '../../enum/status';
 import { ILocation } from '../../interfaces/location';
@@ -18,13 +17,6 @@ function Search({className, placeholder, ...props}: Props): JSX.Element {
 	const dispatch = useAppDispatch();
 	const { status, error, cities } = useAppSelector((state: RootState) => state.location);
 	const [ searchValue, setSearchValue ] = React.useState<string>('');
-
-	React.useEffect(() => {
-		if(searchValue === '') {
-			// dispatch(clearCities());
-		}
-
-	},[searchValue]);
 
  	//! так и не поняла какой тип возвращает useCallback Promise<"... и тут что?">
 	const searchRequest: Function = React.useCallback((value:string): Promise<any> => (

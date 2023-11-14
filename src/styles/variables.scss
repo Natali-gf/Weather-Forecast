@@ -13,6 +13,9 @@ $sizeLarge: 992px;
 $sizeMedium: 768px;
 $sizeSmall: 576px;
 
+$shadowLarge: 0 0 8px .2px rgba(49, 53, 63, 0.6);
+$shadowLittle: 0 0 5px .2px rgba(49, 53, 63, 0.5);
+
 @mixin fontStyle($size: 16px, $height: 20px, $weight: 400, $color: $colorDark){
 	font-size: $size;
 	line-height: $height;

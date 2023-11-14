@@ -122,7 +122,7 @@ export interface IWeatherResponseData extends Response {
 }
 
 export interface IWeatherResponseCurrentData extends Response {
-	data: Array<IResponseWeatherCurrent>
+	data: IResponseWeatherCurrent
 }
 
 export interface ILocationResponseData extends Response {

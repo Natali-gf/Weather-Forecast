@@ -8,19 +8,22 @@
 		@include width-height(100%);
 		position: fixed;
 		background-color: rgba(14, 32, 46, 0.85);
+		z-index: 10;
 	}
 	&__container {
-		max-width: 1500px;
+		max-width: 1200px;
 		padding: 20px;
 		margin: 0 auto;
+		display: flex;
+		flex-direction: column;
+		gap: 30px;
 	}
 	&__buttonMenu {
 		cursor: pointer;
 		background-color: $colorWhite;
-		box-shadow: 0 0 5px .2px rgba(49, 53, 63, 0.5);
+		box-shadow: $shadowLittle;
 		border-radius: 6px;
 		padding: 10px 15px 8px;
-		// margin: 5px;
 		&::before {
 			content: url(../../assets/icons/sidebar_menu.svg);
 		}
@@ -30,5 +33,9 @@
 		justify-content: space-between;
 		gap: 10px;
 		height: 50px;
+	}
+	&__main {
+		display: flex;
+		gap: 30px;
 	}
 }

@@ -5,7 +5,6 @@ import { ILocationResponse, ILocationResponseData } from '../../interfaces/apiRe
 import { Status, StatusCode } from '../../enum/status';
 import { ILocation } from '../../interfaces/location';
 import { StatusRequest } from '../../types/statusRequest';
-import { BaseThunkAPI } from '@reduxjs/toolkit/dist/createAsyncThunk';
 import { firstArrayItem } from '../../data/constants';
 import { ICoords } from '../../interfaces/coords';
 
@@ -109,9 +108,9 @@ export const locationSlice = createSlice({
 			state.cities = action.payload;
 		},
 		[fetchLocation.rejected.type]: (state: InitialState,
-																		action: PayloadAction<string>) => {
+																		action: PayloadAction<Error>) => {
 			state.status = Status.Rejected;
-			// state.error = action.payload.message;
+			state.error = action.payload.message;
 		},
 
 		[fetchLocationByGeo.pending.type]: (state: InitialState) => {
@@ -124,9 +123,9 @@ export const locationSlice = createSlice({
 			state.currentCity = action.payload;
 		},
 		[fetchLocationByGeo.rejected.type]: (state: InitialState,
-																				 action: PayloadAction<string>) => {
+																				 action: PayloadAction<Error>) => {
 			state.status = Status.Rejected;
-			// state.error = action.payload.message;
+			state.error = action.payload.message;
 		},
 	},
 });

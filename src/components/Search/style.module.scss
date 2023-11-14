@@ -3,7 +3,7 @@
 .search {
 	@include flex-grid(flex, column, center, null);
 	background-color: $colorWhite;
-	box-shadow: 0 0 8px .2px rgba(49, 53, 63, 0.582);
+	box-shadow: $shadowLarge;
 	border-radius: 10px;
 	max-width: 800px;
 	width: 50%;

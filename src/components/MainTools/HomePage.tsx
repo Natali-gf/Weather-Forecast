@@ -5,17 +5,11 @@ import Search from '../../components/Search/Search';
 import Menu from '../../components/Menu/Menu';
 import CurrentLocation from '../../components/CurrentLocation/CurrentLocation';
 
-type Props = {
-	className?: string;
-};
-
-function HomePage({...props}: Props): JSX.Element {
+function HomePage(): JSX.Element {
 	const [openedMenu, setOpenedMenu] = React.useState<boolean>(false);
 
-	function handleClick() {}
-
 	return (
-		<main className={cn(s.content, props.className)}>
+		<main className={s.content}>
 			{openedMenu && (
 				<div
 					className={s.content_hidden}

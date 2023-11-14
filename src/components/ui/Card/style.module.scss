@@ -1,0 +1,9 @@
+@import '../../../styles/variables.scss';
+
+.card {
+	@include fontStyle(16px, normal, 400, $colorDark);
+	background-color: $colorWhite;
+	padding: 15px;
+	box-shadow: $shadowLarge;
+	border-radius: 15px;
+}

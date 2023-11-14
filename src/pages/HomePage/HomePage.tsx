@@ -4,6 +4,8 @@ import cn from 'classnames';
 import Search from '../../components/Search/Search';
 import Menu from '../../components/Menu/Menu';
 import CurrentLocation from '../../components/CurrentLocation/CurrentLocation';
+import MainCard from '../../components/MainCard/MainCard';
+import CurrentWeather from '../../components/CurrentWeather/CurrentWeather';
 
 type Props = {
 	className?: string;
@@ -33,6 +35,10 @@ function HomePage({...props}: Props): JSX.Element {
 					/>
 					<Search />
 					<CurrentLocation />
+				</div>
+				<div className={s.content__main}>
+					<MainCard />
+					<CurrentWeather />
 				</div>
 
 			</div>

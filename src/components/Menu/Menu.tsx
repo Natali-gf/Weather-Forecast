@@ -1,7 +1,6 @@
 import React from 'react';
 import s from './style.module.scss';
 import cn from 'classnames';
-import Search from '../Search/Search';
 import { RootState } from '../../store/store';
 import { useAppSelector } from '../../store/hooks';
 
@@ -50,7 +49,6 @@ function Menu({openedMenu, setOpenedMenu, ...props}: Props): JSX.Element {
 					<button className={s.location__addButton}
 						onClick={() => {}}></button>
 				</div>
-				{/* <Search /> */}
 					{/* //saved locations */}
 				{/* <button
 					className={s.menu__button}
