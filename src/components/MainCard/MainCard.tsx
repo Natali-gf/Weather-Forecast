@@ -17,9 +17,6 @@ function MainCard(): JSX.Element {
 
 	React.useEffect(() => {
 		if(weatherCurrent) {
-
-			//? что-то я тут возможно подзапуталась с 'setInterval' и его 'id' и виде 'ref', не могу определиться нужно ли его очищать или нет
-
 			clearInterval(timeRef.current);
 			timeRef.current = setInterval(() => {
 				setTime(getTime(weatherCurrent.timezone));

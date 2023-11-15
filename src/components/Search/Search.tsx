@@ -13,13 +13,11 @@ function Search(): JSX.Element {
 	const { status, cities } = useAppSelector((state: RootState) => state.location);
 	const [ searchValue, setSearchValue ] = React.useState<string>('');
 
- 	//! так и не поняла какой тип возвращает useCallback Promise<"... и тут что?">
-	const searchRequest: Function = React.useCallback((value:string): Promise<any> => (
+	const searchRequest: (arg: string) => Promise<any> = React.useCallback((value:string): Promise<any> => (
 		dispatch(fetchLocation(value))
 	),[]);
 
-	//! тут аналогично - <Function>?? или не нужно здесь прописывать типы?
-	const debouncedSearch: Function = React.useCallback<Function>(
+	const debouncedSearch: Function = React.useCallback(
     debounce(searchRequest, 500),
     [searchRequest]
   );

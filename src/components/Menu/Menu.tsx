@@ -43,7 +43,7 @@ function Menu({openedMenu, setOpenedMenu}: Props): JSX.Element {
 	}
 
 	return (
-		<div className={cn(s.menu, 'menu', 'theme-light')}>
+		<div className={cn(s.menu)}>
 			<div className={s.menu__container}>
 				<div className={s.menu__header}>
 					<div className={cn(s.menu__switch, s.switch)}>
