@@ -11,7 +11,6 @@ function CurrentLocation(): JSX.Element {
 
 	React.useEffect((): void => {
 		if(findGeo === true) {
-			console.log(1)
 			getGeoPosition().then((result: ICoords): void => {
 				dispatch(fetchLocationByGeo(result));
 			}).catch(error => {
@@ -20,7 +19,7 @@ function CurrentLocation(): JSX.Element {
 
 			setFindGeo(false);
 		}
-	},[findGeo]);
+	},[dispatch, findGeo]);
 
 	return (
 		<button

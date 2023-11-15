@@ -5,9 +5,11 @@ import { getDate, getTime } from '../../helpers/getDateTime';
 import { weekDays, months } from '../../data/datetime';
 import Card from '../ui/Card/Card';
 import s from './style.module.scss';
+import Loader from '../ui/Loader.tsx/Loader';
+import { Status } from '../../enum/status';
 
 function MainCard(): JSX.Element {
-	const { currentCity } = useAppSelector((state: RootState) => state.location);
+	const { currentCity, status } = useAppSelector((state: RootState) => state.location);
 	const { weatherCurrent } = useAppSelector((state: RootState) => state.weather);
 	const [ time, setTime ] = React.useState<string>('');
 	const { weekDay, monthDay, month }= getDate();
@@ -28,11 +30,16 @@ function MainCard(): JSX.Element {
 	return (
 		<Card className={s.mainCard}>
 			<>
-				<div className={s.mainCard__city}>{currentCity?.name}</div>
-				<div className={s.mainCard__time}>{time}</div>
-				<div className={s.mainCard__date}>
-					{weekDays[weekDay].name}, {monthDay} {months[month].name}
-				</div>
+				{status === Status.Loading
+					?	<Loader className={s.mainCard__loader}/>
+					: <>
+						<div className={s.mainCard__city}>{currentCity?.name}</div>
+						<div className={s.mainCard__time}>{time}</div>
+						<div className={s.mainCard__date}>
+							{weekDays[weekDay].name}, {monthDay} {months[month].name}
+						</div>
+					</>
+				}
 			</>
 		</Card>
 	)

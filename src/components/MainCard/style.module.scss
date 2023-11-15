@@ -1,6 +1,7 @@
 @import '../../styles/variables.scss';
 
 .mainCard {
+	position: relative;
 	text-align: center;
 	display: flex;
 	flex-direction: column;
@@ -14,5 +15,7 @@
 	}
 	&__date {
 		color: $colorGrey;
+	}
+	&__loader {
 	}
 }

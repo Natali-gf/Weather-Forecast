@@ -9,11 +9,13 @@ import { IForecastByHours } from '../../interfaces/weather';
 import { weekDays } from '../../data/datetime';
 import Card from '../ui/Card/Card';
 import s from './style.module.scss';
+import Loader from '../ui/Loader.tsx/Loader';
+import { Status } from '../../enum/status';
 
 function MultidayWeather(): JSX.Element {
 	const dispatch = useAppDispatch();
 	const { currentCity } = useAppSelector((state: RootState) => state.location);
-	const { weatherMultiday } = useAppSelector((state: RootState) => state.weather);
+	const { weatherMultiday, status } = useAppSelector((state: RootState) => state.weather);
 
 	React.useEffect((): void => {
 		if(currentCity) {
@@ -22,10 +24,10 @@ function MultidayWeather(): JSX.Element {
 	},[currentCity]);
 
 	return (
-		<Card
-			className={s.weather}>
-			<>
-				{weatherMultiday !== null &&
+		<Card className={s.weather}>
+			{status === Status.Loading
+			? <Loader className={s.loader} />
+			: <> {weatherMultiday !== null &&
 					<div className={s.weather}>
 						<div className={s.weather__title}>5 day weather forecast</div>
 						{weatherMultiday.list.map((item:IForecastByHours,
@@ -86,7 +88,7 @@ function MultidayWeather(): JSX.Element {
 						})}
 					</div>
 				}
-			</>
+			</>}
 		</Card>
 	)
 }

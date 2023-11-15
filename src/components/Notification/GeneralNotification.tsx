@@ -10,7 +10,7 @@ type Props = {
 
 function GeneralNotification({clearError, className, children}: Props): JSX.Element {
 	const dispatch = useAppDispatch();
-console.log(66)
+	
 	function handleClick(): void {
 		if(clearError) {
 			dispatch(clearError(null));

@@ -7,11 +7,13 @@ import { weatherIcons } from '../../data/weatherIcons';
 import { getTime } from '../../helpers/getDateTime';
 import Card from '../ui/Card/Card';
 import s from './style.module.scss';
+import { Status } from '../../enum/status';
+import Loader from '../ui/Loader.tsx/Loader';
 
 function CurrentWeather(): JSX.Element {
 	const dispatch = useAppDispatch();
 	const { currentCity } = useAppSelector((state: RootState) => state.location);
-	const { weatherCurrent } = useAppSelector((state: RootState) => state.weather);
+	const { weatherCurrent, status } = useAppSelector((state: RootState) => state.weather);
 
 	React.useEffect((): void => {
 		if(currentCity) {
@@ -22,7 +24,9 @@ function CurrentWeather(): JSX.Element {
 	return (
 		<Card>
 			<>
-				{weatherCurrent !== null &&
+				{status === Status.Loading
+				? <Loader className={s.loader} />
+				:	<> {weatherCurrent &&
 					<div className={s.weather}>
 						<div className={cn(s.weather__temperature, s.temperature)}>
 							<div className={s.temperature__current}>
@@ -86,8 +90,8 @@ function CurrentWeather(): JSX.Element {
 							</span>
 							<span className={s.weather__text}>Humidity</span>
 						</div>
-					</div>
-				}
+					</div>}
+				</>}
 			</>
 		</Card>
 	)
