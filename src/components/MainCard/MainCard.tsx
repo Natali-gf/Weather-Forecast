@@ -27,16 +27,11 @@ function MainCard(): JSX.Element {
 	return (
 		<Card className={s.mainCard}>
 			<>
-				{status === Status.Loading
-					?	<Loader className={s.mainCard__loader}/>
-					: <>
-						<div className={s.mainCard__city}>{currentCity?.name}</div>
-						<div className={s.mainCard__time}>{time}</div>
-						<div className={s.mainCard__date}>
-							{weekDays[weekDay].name}, {monthDay} {months[month].name}
-						</div>
-					</>
-				}
+				<div className={s.mainCard__city}>{currentCity?.name}</div>
+				<div className={s.mainCard__time}>{time}</div>
+				<div className={s.mainCard__date}>
+					{weekDays[weekDay].name}, {monthDay} {months[month].name}
+				</div>
 			</>
 		</Card>
 	)

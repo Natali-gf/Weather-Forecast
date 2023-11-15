@@ -19,7 +19,7 @@ function CurrentLocation(): JSX.Element {
 
 			setFindGeo(false);
 		}
-	},[dispatch, findGeo]);
+	},[findGeo]);
 
 	return (
 		<button
