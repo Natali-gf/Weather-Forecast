@@ -13,7 +13,7 @@ function HomePage(): JSX.Element {
 	const [openedMenu, setOpenedMenu] = React.useState<boolean>(false);
 
 	return (
-		<main className={cn(s.content, 'theme-light')}>
+		<main className={cn(s.content)}>
 			{openedMenu && (
 				<div
 					className={s.content_hidden}

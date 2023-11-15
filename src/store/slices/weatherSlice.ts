@@ -44,7 +44,6 @@ export const fetchMultidayWeather = createAsyncThunk(
 				timezone: response.data.city.timezone,
 				list: [
 					...response.data.list.map((item: IResponseWeatherByHours): IForecastByHours => {
-						console.log(item.sys.pod)
 						return {
 							temperature: item.main.temp,
 							feelsLike: item.main.feels_like,

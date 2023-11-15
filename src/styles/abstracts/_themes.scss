@@ -1,0 +1,58 @@
+@use 'sass:map' ;
+
+$colorWhite: #ffffff;
+$colorGrey: #5C6A79;
+$colorGreyLight: #989fa7;
+$colorDark: #1C2A39;
+$colorBlueLight: #aae6ee;
+$dayFon: linear-gradient(175deg, transparent 50%, #aae6ee 97%) left 0 bottom 0 / 100% 50% no-repeat, url('../../assets/images/light_clouds.png') center/cover no-repeat;
+$nightFon: linear-gradient(150deg, #29373a 1%, #142030 30%, #13111b 71.82%);
+
+//?
+$themes: (
+  light: (
+    textMain: $colorDark,
+    textSecondary: $colorGrey,
+		colorMain: $colorWhite,
+		colorSecondary: #9ec7db,
+		fon: $dayFon,
+    backMenu: #e4f1f7,
+    backFill: #6f91aab9,
+  ),
+  dark: (
+    textMain: $colorWhite,
+    textSecondary: $colorGreyLight,
+		colorMain: $colorWhite,
+		colorSecondary: $colorGrey,
+		fon: $nightFon,
+		backFill: #0e202ed9,
+    backMenu: $colorDark,
+
+  ),
+);
+
+@mixin themed {
+  @each $theme, $map in $themes {
+    :global(.theme--#{$theme}) & {
+      $theme-map: () !global;
+
+      @each $key, $submap in $map {
+        $value: map.get($map, $key);
+        $theme-map: map.merge(
+          $theme-map,
+          (
+            $key: $value,
+          )
+        ) !global;
+      }
+      @content;
+
+      $theme-map: null !global;
+    }
+  }
+}
+
+@function t( $key ) {
+  @return map-get( $theme-map , $key );
+}
+

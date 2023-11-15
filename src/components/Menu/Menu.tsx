@@ -6,17 +6,26 @@ import {useAppDispatch, useAppSelector} from '../../store/hooks';
 import { addFavoriteCity, removeFavoriteCity, setCurrentCity } from '../../store/slices/locationSlice';
 import { ILocation } from '../../interfaces/location';
 import { ReactComponent as Trash } from '../../assets/icons/trash.svg';
+import { ThemeContext } from '../../app/theme/ThemeContext';
 
 type Props = {
 	openedMenu: boolean;
 	setOpenedMenu: React.Dispatch<React.SetStateAction<boolean>>;
-	// setTheme: React.Dispatch<React.SetStateAction<string>>;
 };
 
 function Menu({openedMenu, setOpenedMenu}: Props): JSX.Element {
 	const dispatch = useAppDispatch();
 	const { currentCity, favoriteCities } = useAppSelector((state: RootState) => state.location);
 	const [ editMenu, setEditMenu ] = React.useState<boolean>(false);
+	const { theme, setTheme } = React.useContext(ThemeContext);
+
+	const themeHandler = () => {
+		if (theme === `light`) {
+			setTheme(`dark`);
+		} else {
+			setTheme(`light`);
+		}
+	};
 
 	React.useEffect(() => {
 		if(favoriteCities.length === 0 && localStorage.favoriteCities) {
@@ -42,8 +51,8 @@ function Menu({openedMenu, setOpenedMenu}: Props): JSX.Element {
 							className={s.switch__input}
 							type={'checkbox'}
 							id={'switchTheme'}
-							// onClick={() => setTheme('theme-dark')}
-							defaultChecked={true}
+							onClick={themeHandler}
+							defaultChecked={theme === 'light'}
 						/>
 						<label className={s.switch__label} htmlFor={'switchTheme'} />
 					</div>

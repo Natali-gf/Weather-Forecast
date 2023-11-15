@@ -1,21 +1,20 @@
+@use '../../styles/styles.scss' as *;
 @import '../../styles/variables.scss';
-@import '../../styles/themes.scss';
 
 .content {
-	@include themify($themes) {
-		background-color: themed('back');
-	}
 	position: relative;
 	height: 100%;
-	background: linear-gradient(175deg, transparent 50%, #aae6ee 97%) left 0 bottom 0 / 100% 50% no-repeat, url('../../assets/images/light_clouds.png') center/cover no-repeat;
+	@include themed() {
+		background: t('fon');
+	}
 	&_hidden {
-		@include themify($themes) {
-			background-color: themed('back');
-		}
 		@include width-height(100%);
 		position: fixed;
 		background-color: rgba(14, 32, 46, 0.85);
 		z-index: 10;
+		@include themed() {
+			background-color: t('backFill');
+		}
 	}
 	&__container {
 		max-width: 1200px;

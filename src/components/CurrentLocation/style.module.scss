@@ -1,3 +1,4 @@
+@use '../../styles/styles.scss' as *;
 @import '../../styles/variables.scss';
 
 .buttonGeo {
@@ -11,6 +12,13 @@
 	padding: 0 12px;
 	&::before {
 		content: url(../../assets/icons/location.svg);
+		background-color: $colorWhite;
+		border-radius: 50%;
+		@include width-height(35px);
 		margin-right: 10px;
+	}
+	@include themed() {
+		color: t('textMain');
+		border-color: t('colorMain');
 	}
 }
