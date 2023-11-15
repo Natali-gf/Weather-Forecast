@@ -11,12 +11,11 @@ function CurrentLocation(): JSX.Element {
 
 	React.useEffect((): void => {
 		if(findGeo === true) {
-			getGeoPosition().then((result: ICoords | string): void => {
-				if(typeof result === 'string') {
-					dispatch(setErrorText(result));
-				} else {
-					dispatch(fetchLocationByGeo(result));
-				}
+			console.log(1)
+			getGeoPosition().then((result: ICoords): void => {
+				dispatch(fetchLocationByGeo(result));
+			}).catch(error => {
+				dispatch(setErrorText(error));
 			});
 
 			setFindGeo(false);

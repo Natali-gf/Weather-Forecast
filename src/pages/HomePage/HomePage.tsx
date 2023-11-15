@@ -7,10 +7,25 @@ import MainCard from '../../components/MainCard/MainCard';
 import CurrentWeather from '../../components/CurrentWeather/CurrentWeather';
 import MultidayWeather from '../../components/MultidayWeather/MultidayWeather';
 import s from './style.module.scss';
+import GeneralNotification from '../../components/Notification/GeneralNotification';
+import { useAppSelector } from '../../store/hooks';
+import { RootState } from '../../store/store';
+import { clearErrorText } from '../../store/slices/locationSlice';
+import { clearError } from '../../store/slices/weatherSlice';
 
 function HomePage(): JSX.Element {
-	// const [ theme, setTheme ] = React.useState('theme-light');
 	const [openedMenu, setOpenedMenu] = React.useState<boolean>(false);
+	const [errorNotification, showErrorNotification] = React.useState<boolean>(false);
+	const errorLocation = useAppSelector((state: RootState) => state.location.error);
+	const errorWeather = useAppSelector((state: RootState) => state.weather.error);
+
+	React.useEffect(() => {
+		if(errorLocation || errorWeather) {
+			showErrorNotification(true);
+		} else {
+			showErrorNotification(false);
+		}
+	}, [errorLocation, errorWeather])
 
 	return (
 		<main className={cn(s.content)}>
@@ -24,7 +39,6 @@ function HomePage(): JSX.Element {
 				<Menu
 					setOpenedMenu={setOpenedMenu}
 					openedMenu={openedMenu}
-					// setTheme={setTheme}
 				/>
 			)}
 			<div className={s.content__container}>
@@ -42,6 +56,12 @@ function HomePage(): JSX.Element {
 				</div>
 				<MultidayWeather />
 			</div>
+			{errorNotification &&
+				<GeneralNotification
+					{...(errorLocation ? {children: errorLocation, clearError: clearErrorText} :
+						errorWeather ? {children: errorWeather, clearError: clearError} : {})}
+				/>
+			}
 		</main>
 	);
 }

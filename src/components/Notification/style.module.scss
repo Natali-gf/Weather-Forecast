@@ -1,0 +1,38 @@
+@use '../../styles/styles.scss' as *;
+@import '../../styles/variables';
+
+.generalNotification {
+	position: absolute;
+	@include width-height(100%);
+	top: 0;
+	@include flex-grid(flex, null, center, center);
+	z-index: 100;
+	&__container {
+		height: fit-content;
+		width: fit-content;
+		background: #595959;
+		border-radius: 16px;
+		margin: auto;
+		position: relative;
+		min-width: 500px;
+		max-width: 1100px;
+		@include flex-grid(flex, column, null, flex-start);
+		padding: 40px;
+		@include themed() {
+			color: t('textMain');
+			background-color: t('backMenu');
+		}
+	}
+	&__description {
+		margin: 12px 0;
+	}
+	&__button {
+		@include themed() {
+			color: t('textMain');
+			background-color: t('colorSecondary');
+		}
+		align-self: flex-end;
+		padding: 12px 56.5px;
+		cursor: pointer;
+	}
+}

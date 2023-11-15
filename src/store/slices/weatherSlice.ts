@@ -118,7 +118,9 @@ export const weatherSlice = createSlice({
     name: 'weather',
     initialState,
     reducers: {
-
+			clearError: (state: InitialState) => {
+				state.error = null;
+			},
     },
 	extraReducers: {
 		[fetchCurrentWeather.pending.type]: (state: InitialState) => {
@@ -154,7 +156,7 @@ export const weatherSlice = createSlice({
 });
 
 export const {
-
+	clearError
 } = weatherSlice.actions;
 
 export default weatherSlice.reducer;

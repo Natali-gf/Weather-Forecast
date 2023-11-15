@@ -3,7 +3,7 @@
 
 .content {
 	position: relative;
-	height: 100%;
+	@include width-height(100%);
 	@include themed() {
 		background: t('fon');
 	}

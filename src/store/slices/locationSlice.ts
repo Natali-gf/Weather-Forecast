@@ -91,7 +91,7 @@ export const locationSlice = createSlice({
 		setCurrentCity: (state: InitialState, action: PayloadAction<ILocation>) => {
 			state.currentCity = action.payload;
 		},
-		setErrorText: (state: InitialState, action: PayloadAction<string>) => {
+		setErrorText: (state: InitialState, action: PayloadAction<string | null>) => {
 			state.error = action.payload;
 		},
 		clearErrorText: (state: InitialState) => {
