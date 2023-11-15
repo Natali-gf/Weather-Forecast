@@ -19,7 +19,7 @@ function CurrentWeather(): JSX.Element {
 		if(currentCity) {
 			dispatch(fetchCurrentWeather());
 		}
-	},[currentCity]);
+	},[dispatch, currentCity]);
 
 	return (
 		<Card>

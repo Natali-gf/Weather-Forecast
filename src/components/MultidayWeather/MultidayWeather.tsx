@@ -21,7 +21,7 @@ function MultidayWeather(): JSX.Element {
 		if(currentCity) {
 			dispatch(fetchMultidayWeather());
 		}
-	},[currentCity]);
+	},[dispatch, currentCity]);
 
 	return (
 		<Card className={s.weather}>

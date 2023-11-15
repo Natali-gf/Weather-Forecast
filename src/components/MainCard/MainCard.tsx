@@ -25,7 +25,7 @@ function MainCard(): JSX.Element {
 				setTime(getTime(weatherCurrent.timezone));
 			}, 1000);
 		}
-	}, [time, weatherCurrent?.timezone]);
+	}, [time, weatherCurrent, weatherCurrent?.timezone]);
 
 	return (
 		<Card className={s.mainCard}>
