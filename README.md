@@ -1,40 +1,40 @@
-# Проект «Виджет с прогнозом погоды»
+# Project “Weather Forecast Widget”
 
-**Этот виджет позволяет получать информацию о погоде:**
+**This widget allows you to receive weather information:**
 
-- В любом городе по запросу;
+- In any city upon request;
 
-- По текущей геолокации пользователя.
+- Based on the user’s current geolocation.
 
-**Также пользователь сможет выбрать, на какой период он хочет узнать погоду:**
+**The user will also be able to choose for what period he wants to know the weather:**
 
-- На текущее время;
+- For the current time;
 
-- На ближайшие 5 дней.
+- For the next 5 days.
 
 
-### Обязательные элементы дизайна:
+### Required design elements:
 
-1. Поисковая строка для ввода города или населенного пункта.
+1. Search line for entering a city or town.
 
-2. Кнопка для получения текущей геолокации пользователя.
+2. Button to get the user's current geolocation.
 
-3. Кнопка для получения прогноза погоды.
+3. Button for receiving weather forecast.
 
-4. Блок или несколько блоков с полученной информацией о погоде.
+4. A block or several blocks with received weather information.
 
-5. Переключатель для выбора, какие данные получить. Текущую погоду или прогноз на 5 дней.
+5. Switch to select which data to receive. Current weather or 5 day forecast.
 
-### Данные, которые необходимо показать пользователю:
+### Data that needs to be shown to the user:
 
-1. Температуру в градусах Цельсия.
+1. Temperature in degrees Celsius.
 
-2. Текстовое описание погоды: например, «пасмурно». И соответствующую картинку. Можете взять как свои иконки, так и использовать те, что предлагает OpenWeather.
+2. Text description of the weather: for example, “cloudy.” And the corresponding picture. You can use your own icons or use those offered by OpenWeather.
 
-3. Давление.
+3. Pressure.
 
-4. Влажность.
+4. Humidity.
 
-5. Скорость ветра.
+5. Wind speed.
 
-6. Время восхода и заката солнца.
+6. Sunrise and sunset times.
