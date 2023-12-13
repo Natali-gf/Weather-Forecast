@@ -8,10 +8,10 @@ import CurrentWeather from '../../components/CurrentWeather/CurrentWeather';
 import MultidayWeather from '../../components/MultidayWeather/MultidayWeather';
 import s from './style.module.scss';
 import GeneralNotification from '../../components/Notification/GeneralNotification';
-import { useAppSelector } from '../../store/hooks';
-import { RootState } from '../../store/store';
-import { clearErrorText } from '../../store/slices/locationSlice';
-import { clearError } from '../../store/slices/weatherSlice';
+import {useAppSelector} from '../../store/hooks';
+import {RootState} from '../../store/store';
+import {clearErrorText} from '../../store/slices/locationSlice';
+import {clearError} from '../../store/slices/weatherSlice';
 
 function HomePage(): JSX.Element {
 	const [openedMenu, setOpenedMenu] = React.useState<boolean>(false);
@@ -20,33 +20,27 @@ function HomePage(): JSX.Element {
 	const errorWeather = useAppSelector((state: RootState) => state.weather.error);
 
 	React.useEffect(() => {
-		if(errorLocation || errorWeather) {
+		if (errorLocation || errorWeather) {
 			showErrorNotification(true);
 		} else {
 			showErrorNotification(false);
 		}
-	}, [errorLocation, errorWeather])
+	}, [errorLocation, errorWeather]);
 
 	return (
 		<main className={cn(s.content)}>
 			{openedMenu && (
-				<div
-					className={s.content_hidden}
-					onClick={() => setOpenedMenu(false)}
-				/>
+				<div className={s.content_hidden} onClick={() => setOpenedMenu(false)} />
 			)}
-			{openedMenu && (
-				<Menu
-					setOpenedMenu={setOpenedMenu}
-					openedMenu={openedMenu}
-				/>
-			)}
+			{openedMenu && <Menu setOpenedMenu={setOpenedMenu} openedMenu={openedMenu} />}
 			<div className={s.content__container}>
 				<div className={s.content__mainTools}>
-					<button
-						className={s.content__buttonMenu}
-						onClick={() => setOpenedMenu(!openedMenu)}
-					/>
+						<button
+							className={cn(s.content__buttonMenu, {
+								[s.content__buttonMenu_hidden]: openedMenu,
+							})}
+							onClick={() => setOpenedMenu(!openedMenu)}
+						/>
 					<Search />
 					<CurrentLocation />
 				</div>
@@ -56,12 +50,15 @@ function HomePage(): JSX.Element {
 				</div>
 				<MultidayWeather />
 			</div>
-			{errorNotification &&
+			{errorNotification && (
 				<GeneralNotification
-					{...(errorLocation ? {children: errorLocation, clearError: clearErrorText} :
-						errorWeather ? {children: errorWeather, clearError: clearError} : {})}
+					{...(errorLocation
+						? {children: errorLocation, clearError: clearErrorText}
+						: errorWeather
+						? {children: errorWeather, clearError: clearError}
+						: {})}
 				/>
-			}
+			)}
 		</main>
 	);
 }

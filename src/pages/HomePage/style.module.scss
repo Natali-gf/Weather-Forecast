@@ -34,6 +34,18 @@
 		&::before {
 			content: url(../../assets/icons/sidebar_menu.svg);
 		}
+		&_hidden {
+			border-width: 1px;
+			border-style: solid;
+			@include themed() {
+				color: t('textMain');
+				border-color: t('colorMain');
+				background-color: transparent;
+			}
+			&::before {
+				content: url(../../assets/icons/sidebar_menu_white.svg);
+			}
+		}
 	}
 	&__mainTools {
 		display: flex;
@@ -71,7 +83,7 @@
 			justify-content: space-between;
 			gap: 10px;
 			height: 110px;
-			&>div:nth-child(2) {
+			& > div:nth-child(2) {
 				position: absolute;
 				align-self: flex-end;
 				width: 100%;
